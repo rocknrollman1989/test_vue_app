@@ -1,6 +1,6 @@
 <template>
   <div class="pictures">
-    <a href=""><div class="to-create-new-post"></div></a>
+    <router-link :to="'/create_new_image'"><div class="to-create-new-post"></div></router-link>
     <div v-if="!fetchDataProcess" v-for="(dataImage, key) of showOurDataImage" :key="key" class="picture">
       <picture-item v-bind:data-image="dataImage"></picture-item>
     </div>
@@ -17,11 +17,7 @@ export default {
   components: {
     'picture-item' : PictureItem
   },
-  data: function() {
-    return{
-      
-    }
-  },
+  
   computed: mapState({
     fetchDataProcess(state){
       return state.fetchDataProcess;
@@ -47,5 +43,12 @@ export default {
 .picture{
   width: 25%;
 }
-
+a{
+   width: 25%;
+}
+.to-create-new-post{
+   width: 100%;
+   height: 100%;
+   background: grey;
+}
 </style>

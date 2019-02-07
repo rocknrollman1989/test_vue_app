@@ -1,9 +1,9 @@
 
 <template>
     <div>
-        <img :src="getImageFromStore.url"/>
-        <p>{{ getImageFromStore.tittle }}</p>
-        <p>FDFDFDsdsdsdsF</p>
+        <button v-on:click="deleteThisImage">Delete image</button>
+        <img v-if="getImageFromStore" :src="getImageFromStore.url"/>
+        <p v-if="getImageFromStore">{{ getImageFromStore.title }}</p>
     </div>
 </template>
 
@@ -17,8 +17,15 @@ export default {
             imageId: this.$route.params.id,
         }
     },
+    methods: {
+        deleteThisImage: function(){
+            this.$router.push('/');
+            return this.$store.dispatch('deleteDataFromServer', this.imageId);
+        }
+    },
     computed: {
         getImageFromStore: function(){
+
             let imageInfo = this.$store.state.blogPictures.filter((item) => {
                 return item.id == this.imageId 
             })

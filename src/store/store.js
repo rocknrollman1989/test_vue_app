@@ -21,10 +21,13 @@ export const store = new Vuex.Store({
         },
         addDataToStore: (state, data) => {
             state.fetchDataProcess = ! state.fetchDataProcess;
-            state.blogPictures.push(...data)
+            return state.blogPictures.push(...data)
         },
         fetchError: (state) => {
             return state.error = !true;
+        },
+        deleteDataFromStore: (state, idToDelete) => {
+            return state.blogPictures.splice(idToDelete-1, 1);
         }
     },
     actions: { 
@@ -39,6 +42,13 @@ export const store = new Vuex.Store({
                     commit('fetchError');
                     console.log(error);
                 })
+        },
+        deleteDataFromServer: ({commit}, dataId) => {
+            axios.delete(`${serverApi}+/${dataId}`)
+            .catch((error) => {
+                console.log(error);
+            });
+            commit('deleteDataFromStore',dataId);
         }
     },
     getters: { 
