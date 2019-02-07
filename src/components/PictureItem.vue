@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <router-link :to="'/image/' + dataImage.id">
         <img :src="dataImage.url"/>
         <p>{{dataImage.title}}</p>
-    </div>
+    </router-link>
 </template>
 
 <script>
@@ -18,5 +18,18 @@ export default {
 </script>
 
 <style scoped>
+img{
+    width: 80%;
+}
+p{
+    position: relative;
+}
+p:after{
+    content: ''
+}
+a{
+    text-decoration: none;
+    color: black;
+}
 
 </style>

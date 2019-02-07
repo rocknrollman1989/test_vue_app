@@ -1,5 +1,6 @@
 <template>
   <div class="pictures">
+    <a href=""><div class="to-create-new-post"></div></a>
     <div v-if="!fetchDataProcess" v-for="(dataImage, key) of showOurDataImage" :key="key" class="picture">
       <picture-item v-bind:data-image="dataImage"></picture-item>
     </div>
@@ -37,6 +38,14 @@ export default {
 </script>
 
 <style scoped>
-
+.pictures{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.picture{
+  width: 25%;
+}
 
 </style>
