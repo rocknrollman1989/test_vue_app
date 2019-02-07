@@ -21,7 +21,7 @@ export const store = new Vuex.Store({
         },
         addDataToStore: (state, data) => {
             state.fetchDataProcess = ! state.fetchDataProcess;
-            state.blogPictures.push(data)
+            state.blogPictures.push(...data)
         },
         fetchError: (state) => {
             return state.error = !true;

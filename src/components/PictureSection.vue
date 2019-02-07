@@ -1,7 +1,7 @@
 <template>
   <div class="pictures">
-    <div v-for="(key, item) of showOurDataImage" :key="item" class="picture">
-      {{key}}
+    <div v-if="!fetchDataProcess" v-for="(dataImage, key) of showOurDataImage" :key="key" class="picture">
+      <picture-item v-bind:data-image="dataImage"></picture-item>
     </div>
     <p v-if="fetchDataProcess">Loading images</p>
     <p v-if="checkErrorState">Please reload page, something going wrong</p>
@@ -9,25 +9,29 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import PictureItem from './PictureItem.vue'
 
 export default {
-  
+  components: {
+    'picture-item' : PictureItem
+  },
   data: function() {
     return{
       
     }
   },
-  computed:{
-    fetchDataProcess(){
-      return this.$store.state.fetchDataProcess;
+  computed: mapState({
+    fetchDataProcess(state){
+      return state.fetchDataProcess;
     },
-    checkErrorState(){
-      return this.$store.state.error;
+    checkErrorState(state){
+      return state.error;
     },
-    showOurDataImage(){
-      return this.$store.state.blogPictures
+    showOurDataImage(state){
+      return state.blogPictures
     }
-  }
+  })
   
 }
 </script>
