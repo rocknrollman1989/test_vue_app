@@ -28,6 +28,10 @@ export const store = new Vuex.Store({
         },
         deleteDataFromStore: (state, idToDelete) => {
             return state.blogPictures.splice(idToDelete-1, 1);
+        },
+        addNewImageToStore: (state, newImage) => {
+
+            return state.blogPictures.push(newImage);
         }
     },
     actions: { 
@@ -49,6 +53,13 @@ export const store = new Vuex.Store({
                 console.log(error);
             });
             commit('deleteDataFromStore',dataId);
+        },
+        loadANewImage: ({commit}, newImage) => {
+            commit('addNewImageToStore', newImage)
+            axios.post(`${serverApi}`)
+            .catch((error) => {
+                console.log(error);
+            });
         }
     },
     getters: { 

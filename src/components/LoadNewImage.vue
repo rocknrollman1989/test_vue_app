@@ -1,12 +1,12 @@
 <template>
     <div class="load-new-picture">
-        <img :src="pictureUrl" alt="your Image">
-        <form>
+        <img :src="imageData.url" alt="your Image">
+        <form @submit.prevent="addImage">
             <label for="discription">Your title</label>
-            <input type="text" id="discription" v-model="title">
+            <input type="text" id="discription" v-model="imageData.title">
             <label for="urlForImage">Please, enter URL</label>
-            <input type="text" id="urlForImage" v-model="imageData.pictureUrl">
-            <button @click="addImage">Add</button>
+            <input type="text" id="urlForImage" v-model="imageData.url">
+            <input type="submit" value="Load">
         </form>
     </div>
 </template>
@@ -14,17 +14,23 @@
 <script>
 
 export default {
-    date: function(){
+    data: function(){
         return{
             imageData: {
-                pictureUrl:'',
                 title:'',
+                url:'',
             }
         }
     },
     methods: {
         addImage(){
-            console.log(this.imageData)
+            
+            let imageData = {
+                url: this.imageData.url,
+                title: this.imageData.title
+            }
+            this.$store.dispatch('loadANewImage', imageData);
+            this.$router.push('/');
         }
     }
 }
