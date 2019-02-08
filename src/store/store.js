@@ -9,60 +9,67 @@ Vue.use(VueAxios, axios)
 Vue.use(Vuex)
 
 
-export const store = new Vuex.Store({
-    state: {
-        blogPictures: [],
-        fetchDataProcess: false,
-        error: false,
-        counterToCreateID: 0
+export const state = {
+    blogPictures: [],
+    fetchDataProcess: false,
+    error: false,
+    counterToCreateID: 0
+};
+export const mutations = { 
+    fetchDataProcess: (state) => {
+        return state.fetchDataProcess = true
     },
-    mutations: { 
-        fetchDataProcess: (state) => {
-            return state.fetchDataProcess = ! state.fetchDataProcess
-        },
-        addDataToStore: (state, data) => {
-            state.fetchDataProcess = ! state.fetchDataProcess;
-            state.blogPictures.push(...data);
-            state.counterToCreateID = state.blogPictures.length;
-            return
-        },
-        fetchError: (state) => {
-            return state.error = !true;
-        },
-        deleteDataFromStore: (state, idToDelete) => {
-            return state.blogPictures.splice(idToDelete-1, 1);
-        },
-        addNewImageToStore: (state, newImage) => {
-            state.counterToCreateID++;
-            return state.blogPictures.push(newImage);
-        }
+    addDataToStore: (state, data) => {
+        state.fetchDataProcess = false;
+        state.blogPictures.push(...data);
+        state.counterToCreateID = state.blogPictures.length;
+        return
     },
-    actions: { 
-        [FETCH_DATA]: ({commit}) => {
-            commit('fetchDataProcess');
-            axios.get(serverApi)
-                .then((data) => {
-                    let ourDataImageArray = data.data.slice(0, 4);
-                    commit('addDataToStore', ourDataImageArray);
-                })
-                .catch(() => {
-                    commit('fetchError');
-                })
-        },
-        [DELETE_DATA_FROM_SERVER]: ({commit}, dataId) => {
-            axios.delete(`${serverApi}+/${dataId}`)
-            .catch(() => {
-            });
-            commit('deleteDataFromStore',dataId);
-        },
-        [LOAD_NEW_IMAGE]: ({commit}, newImage) => {
-            commit('addNewImageToStore', newImage)
-            axios.post(`${serverApi}`)
-            .catch(() => {
-            });
-        }
+    fetchError: (state) => {
+        return state.error = true
     },
-    getters: { 
-    
+    deleteDataFromStore: (state, idToDelete) => {
+        return state.blogPictures = state.blogPictures.filter((item) => {
+            return item.id != idToDelete
+        });
+    },
+    addNewImageToStore: (state, newImage) => {
+        state.counterToCreateID++;
+        return state.blogPictures.push(newImage);
     }
+};
+export const actions = { 
+    [FETCH_DATA]: ({commit}) => {
+        commit('fetchDataProcess');
+        axios.get(serverApi)
+            .then((data) => {
+                let ourDataImageArray = data.data.slice(0, 4);
+                commit('addDataToStore', ourDataImageArray);
+            })
+            .catch(() => {
+                commit('fetchError');
+            })
+    },
+    [DELETE_DATA_FROM_SERVER]: ({commit}, dataId) => {
+        axios.delete(`${serverApi}+/${dataId}`)
+        .catch(() => {
+        });
+        commit('deleteDataFromStore',dataId);
+    },
+    [LOAD_NEW_IMAGE]: ({commit}, newImage) => {
+        commit('addNewImageToStore', newImage)
+        axios.post(`${serverApi}`)
+        .catch(() => {
+        });
+    }
+};
+export const getters = { 
+
+}
+
+export const store = new Vuex.Store({
+    state,
+    mutations,
+    actions,
+    getters
 })
