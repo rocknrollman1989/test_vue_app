@@ -1,6 +1,6 @@
 <template>
     <div class="load-new-picture">
-        <img :src="imageData.url" alt="your Image">
+        <img v-if="imageData.url" :src="imageData.url" alt="your Image">
         <form @submit.prevent="addImage">
             <label for="discription">Your title</label>
             <input type="text" id="discription" v-model="imageData.title" @input="checkButtonToActive">
