@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { LOAD_NEW_IMAGE } from '../store/actionsLib';
+import { mapState } from 'vuex';
 
 export default {
     data: function(){
@@ -27,9 +29,11 @@ export default {
             
             let imageData = {
                 url: this.imageData.url,
-                title: this.imageData.title
+                title: this.imageData.title,
+                id: this.$store.state.counterToCreateID
+                
             }
-            this.$store.dispatch('loadANewImage', imageData);
+            this.$store.dispatch(LOAD_NEW_IMAGE, imageData);
             this.$router.push('/');
         }
     }

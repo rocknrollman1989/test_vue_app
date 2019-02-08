@@ -1,13 +1,12 @@
 <template>
   <div id="app">
-    <!-- <picture-section></picture-section> -->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import PictureSection from './components/PictureSection.vue'
-import { FETCH_DATA } from './store/storeConstant'
+import { FETCH_DATA } from './store/actionsLib'
 
 export default {
 

@@ -1,10 +1,10 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import { serverApi } from '../config/api'
-// import { FETCH_DATA } from './storeConstant'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
- 
+import { serverApi } from '../config/api'
+import { FETCH_DATA, LOAD_NEW_IMAGE, DELETE_DATA_FROM_SERVER } from './actionsLib'
+
 Vue.use(VueAxios, axios)
 Vue.use(Vuex)
 
@@ -13,7 +13,8 @@ export const store = new Vuex.Store({
     state: {
         blogPictures: [],
         fetchDataProcess: false,
-        error: false
+        error: false,
+        counterToCreateID: 0
     },
     mutations: { 
         fetchDataProcess: (state) => {
@@ -21,7 +22,9 @@ export const store = new Vuex.Store({
         },
         addDataToStore: (state, data) => {
             state.fetchDataProcess = ! state.fetchDataProcess;
-            return state.blogPictures.push(...data)
+            state.blogPictures.push(...data);
+            state.counterToCreateID = state.blogPictures.length;
+            return
         },
         fetchError: (state) => {
             return state.error = !true;
@@ -30,35 +33,32 @@ export const store = new Vuex.Store({
             return state.blogPictures.splice(idToDelete-1, 1);
         },
         addNewImageToStore: (state, newImage) => {
-
+            state.counterToCreateID++;
             return state.blogPictures.push(newImage);
         }
     },
     actions: { 
-        fetchDataFromServer: ({commit}) => {
+        [FETCH_DATA]: ({commit}) => {
             commit('fetchDataProcess');
             axios.get(serverApi)
                 .then((data) => {
                     let ourDataImageArray = data.data.slice(0, 4);
                     commit('addDataToStore', ourDataImageArray);
                 })
-                .catch((error) => {
+                .catch(() => {
                     commit('fetchError');
-                    console.log(error);
                 })
         },
-        deleteDataFromServer: ({commit}, dataId) => {
+        [DELETE_DATA_FROM_SERVER]: ({commit}, dataId) => {
             axios.delete(`${serverApi}+/${dataId}`)
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
             });
             commit('deleteDataFromStore',dataId);
         },
-        loadANewImage: ({commit}, newImage) => {
+        [LOAD_NEW_IMAGE]: ({commit}, newImage) => {
             commit('addNewImageToStore', newImage)
             axios.post(`${serverApi}`)
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
             });
         }
     },

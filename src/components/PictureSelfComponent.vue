@@ -9,7 +9,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-
+import { DELETE_DATA_FROM_SERVER } from '../store/actionsLib';
 
 export default {
     data: function(){
@@ -20,7 +20,7 @@ export default {
     methods: {
         deleteThisImage: function(){
             this.$router.push('/');
-            return this.$store.dispatch('deleteDataFromServer', this.imageId);
+            return this.$store.dispatch(DELETE_DATA_FROM_SERVER, this.imageId);
         }
     },
     computed: {
