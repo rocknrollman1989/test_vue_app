@@ -13,7 +13,6 @@
 
 <script>
 import { LOAD_NEW_IMAGE } from '../store/actionsLib';
-import { mapState } from 'vuex';
 
 export default {
     data: function(){
