@@ -1,7 +1,7 @@
 <template>
   <div class="pictures">
     <router-link :to="'/create_new_image'"><div class="to-create-new-post"></div></router-link>
-    <div v-if="!fetchDataProcess" v-for="(dataImage, key) of showOurDataImage" :key="key" class="picture">
+    <div v-for="(dataImage, key) of showOurDataImage" :key="key" class="picture">
       <picture-item v-bind:data-image="dataImage"></picture-item>
     </div>
     <p v-if="fetchDataProcess">Loading images</p>
@@ -11,26 +11,26 @@
 
 <script>
 import { mapState } from 'vuex';
-import PictureItem from './PictureItem.vue'
+import PictureItem from './PictureItem.vue';
 
 export default {
   components: {
-    'picture-item' : PictureItem
+    'picture-item': PictureItem,
   },
-  
+
   computed: mapState({
-    fetchDataProcess(state){
+    fetchDataProcess(state) {
       return state.fetchDataProcess;
     },
-    checkErrorState(state){
+    checkErrorState(state) {
       return state.error;
     },
-    showOurDataImage(state){
-      return state.blogPictures
-    }
-  })
-  
-}
+    showOurDataImage(state) {
+      return state.blogPictures;
+    },
+  }),
+
+};
 </script>
 
 <style scoped>

@@ -8,31 +8,31 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import { DELETE_DATA_FROM_SERVER } from '../store/actionsLib';
 
 export default {
-    data: function(){
-        return{
-            imageId: this.$route.params.id,
-        }
+  data() {
+    return {
+      imageId: Number(this.$route.params.id),
+    };
+  },
+  methods: {
+    deleteThisImage() {
+      this.$router.push('/');
+      return this.$store.dispatch(DELETE_DATA_FROM_SERVER, this.imageId);
     },
-    methods: {
-        deleteThisImage: function(){
-            this.$router.push('/');
-            return this.$store.dispatch(DELETE_DATA_FROM_SERVER, this.imageId);
-        }
+  },
+  computed: {
+    getImageFromStore() {
+      const imageInfo = this.$store.state.blogPictures.filter(
+        (item) => {
+          return item.id === this.imageId;
+        },
+      );
+      return imageInfo[0];
     },
-    computed: {
-        getImageFromStore: function(){
-
-            let imageInfo = this.$store.state.blogPictures.filter((item) => {
-                return item.id == this.imageId 
-            })
-            return imageInfo[0]
-        }
-    }
-}
+  },
+};
 </script>
 
 <style scoped>

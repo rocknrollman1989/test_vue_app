@@ -1,1 +1,0 @@
-export const serverApi = 'https://jsonplaceholder.typicode.com/photos'

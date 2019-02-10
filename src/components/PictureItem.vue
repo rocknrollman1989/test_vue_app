@@ -8,11 +8,10 @@
 <script>
 
 export default {
-    props: {
-        dataImage: Object
-    }
-
-}
+  props: {
+    dataImage: Object,
+  },
+};
 
 </script>
 

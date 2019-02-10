@@ -1,29 +1,29 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view>
+      <picture-section/>
+    </router-view>
   </div>
 </template>
 
 <script>
-import PictureSection from './components/PictureSection.vue'
-import { FETCH_DATA } from './store/actionsLib'
+import PictureSection from './components/PictureSection.vue';
+import { FETCH_DATA } from './store/actionsLib';
 
 export default {
-
   name: 'app',
   components: {
-    'picture-section': PictureSection
+    'picture-section': PictureSection,
   },
-  created(){
+  created() {
     this.$store.dispatch(FETCH_DATA);
-  }
-
-}
+  },
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
