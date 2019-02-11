@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { expect } from 'chai';
 import LoadNewImage from '../../src/components/LoadNewImage.vue';
 
 describe('LoadNewImage', () => {
