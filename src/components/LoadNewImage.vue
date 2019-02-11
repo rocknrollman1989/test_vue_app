@@ -3,12 +3,12 @@
         <img v-if="imageData.url" :src="imageData.url" alt="your Image">
         <form @submit.prevent="addImage">
             <label for="discription">Your title</label>
-            <input type="text" id="discription"
+            <input type="text" id="discription" class="input-text"
             v-model="imageData.title" @input="checkButtonToActive">
             <label for="urlForImage">Please, enter URL</label>
-            <input type="text" id="urlForImage"
+            <input type="text" id="urlForImage" class="input-text"
             v-model="imageData.url" @input="checkButtonToActive">
-            <input v-if="buttonIsActiveToLoad" type="submit" value="Load">
+            <input v-if="buttonIsActiveToLoad" type="submit" value="Load" class="btn-to-load">
         </form>
     </div>
 </template>
