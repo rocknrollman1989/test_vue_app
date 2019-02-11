@@ -63,7 +63,13 @@ export const actions = {
   },
 };
 export const getters = {
-
+  getImageFromStore(state) {
+    return (imageId) => {
+      return state.blogPictures.filter((item) => {
+        return item.id === imageId;
+      })[0];
+    };
+  },
 };
 
 export const store = new Vuex.Store({

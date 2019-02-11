@@ -2,8 +2,8 @@
 <template>
     <div>
         <button v-on:click="deleteThisImage">Delete image</button>
-        <img v-if="getImageFromStore" :src="getImageFromStore.url"/>
-        <p v-if="getImageFromStore">{{ getImageFromStore.title }}</p>
+        <img v-if="getImageFromStoreToShow" :src="getImageFromStoreToShow.url"/>
+        <p v-if="getImageFromStoreToShow">{{ getImageFromStoreToShow.title }}</p>
     </div>
 </template>
 
@@ -23,13 +23,8 @@ export default {
     },
   },
   computed: {
-    getImageFromStore() {
-      const imageInfo = this.$store.state.blogPictures.filter(
-        (item) => {
-          return item.id === this.imageId;
-        },
-      );
-      return imageInfo[0];
+    getImageFromStoreToShow() {
+      return this.$store.getters.getImageFromStore(this.imageId);
     },
   },
 };
