@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { DELETE_DATA_FROM_SERVER } from '../store/actionsLib';
+import { DELETE_IMAGE } from '../store/actionsConstants';
 
 export default {
   data() {
@@ -19,7 +19,7 @@ export default {
   methods: {
     deleteThisImage() {
       this.$router.push('/');
-      return this.$store.dispatch(DELETE_DATA_FROM_SERVER, this.imageId);
+      return this.$store.dispatch(DELETE_IMAGE, this.imageId);
     },
   },
   computed: {

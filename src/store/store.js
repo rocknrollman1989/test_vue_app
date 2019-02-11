@@ -2,13 +2,12 @@ import Vuex from 'vuex';
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import { FETCH_DATA, LOAD_NEW_IMAGE, DELETE_DATA_FROM_SERVER } from './actionsLib';
+import { FETCH_DATA, LOAD_NEW_IMAGE, DELETE_IMAGE } from './actionsConstants';
 
 Vue.use(VueAxios, axios);
 Vue.use(Vuex);
 
-export const serverApi = 'https://jsonplaceholder.typicode.com/photos';
-
+axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/photos';
 
 export const state = {
   blogPictures: [],
@@ -20,7 +19,7 @@ export const mutations = {
   fetchDataProcess: (state) => {
     state.fetchDataProcess = true;
   },
-  addDataToStore: (state, data) => {
+  loadImage: (state, data) => {
     state.fetchDataProcess = false;
     state.blogPictures.push(...data);
     state.counterToCreateID = state.blogPictures.length;
@@ -28,7 +27,7 @@ export const mutations = {
   fetchError: (state) => {
     state.error = true;
   },
-  deleteDataFromStore: (state, idToDelete) => {
+  deleteImage: (state, idToDelete) => {
     state.blogPictures = state.blogPictures.filter((item) => {
       return item.id !== idToDelete;
     });
@@ -41,24 +40,24 @@ export const mutations = {
 export const actions = {
   [FETCH_DATA]: ({ commit }) => {
     commit('fetchDataProcess');
-    axios.get(serverApi)
+    axios.get()
       .then((data) => {
         const ourDataImageArray = data.data.slice(0, 4);
-        commit('addDataToStore', ourDataImageArray);
+        commit('loadImage', ourDataImageArray);
       })
       .catch(() => {
         commit('fetchError');
       });
   },
-  [DELETE_DATA_FROM_SERVER]: ({ commit }, dataId) => {
-    axios.delete(`${serverApi}+/${dataId}`)
+  [DELETE_IMAGE]: ({ commit }, dataId) => {
+    axios.delete()
       .catch(() => {
       });
-    commit('deleteDataFromStore', dataId);
+    commit('deleteImage', dataId);
   },
   [LOAD_NEW_IMAGE]: ({ commit }, newImage) => {
     commit('addNewImageToStore', newImage);
-    axios.post(`${serverApi}`)
+    axios.post()
       .catch(() => {
       });
   },

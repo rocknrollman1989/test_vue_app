@@ -8,7 +8,7 @@
 
 <script>
 import PictureSection from './components/PictureSection.vue';
-import { FETCH_DATA } from './store/actionsLib';
+import { FETCH_DATA } from './store/actionsConstants';
 
 export default {
   name: 'app',

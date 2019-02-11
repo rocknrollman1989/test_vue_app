@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { LOAD_NEW_IMAGE } from '../store/actionsLib';
+import { LOAD_NEW_IMAGE } from '../store/actionsConstants';
 
 export default {
   data() {
@@ -28,10 +28,12 @@ export default {
   },
   methods: {
     addImage() {
+      const { url, title } = this.imageData;
+      const { counterToCreateID } = this.$store.state;
       const imageData = {
-        url: this.imageData.url,
-        title: this.imageData.title,
-        id: this.$store.state.counterToCreateID,
+        url,
+        title,
+        id: counterToCreateID,
       };
       this.$store.dispatch(LOAD_NEW_IMAGE, imageData);
       this.$router.push('/');
